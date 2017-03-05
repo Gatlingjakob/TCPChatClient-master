@@ -31,7 +31,7 @@ public class TCPChatClient extends Application implements Runnable {
 
 
 
-    String JOIN = "JOIN {" + username + "}, {" +
+    String JOIN = ", {" +
             clientSocket.getInetAddress() + "}:{" + clientSocket.getPort()+ "}";
     byte[] JOINBytes = JOIN.getBytes();
 
@@ -130,18 +130,14 @@ public class TCPChatClient extends Application implements Runnable {
 
 
                 if(responseLine.startsWith("Hello ")){
-                    //Iterér igennem response line for at få brugernavn til fremtidig brug i de andre PRAHTEKAHLS
                     os.write(JOINBytes);
-                    //username = inputLine.toString();
-                    //username = responseLine.toString();
 
                 }
 
-
-
                 System.out.println(responseLine);
-                if (responseLine.contains("Server says Bye")) { //Det er ikke sikkert at denne responseline kommer
-                    //på det rigtige tidspunkt
+
+                //if (inputLine.readLine()==("/quit")) { virker, men man skal trykke enter hele tiden
+                if (responseLine.contains("Server says Bye")) { //printer ikke QUITBytes
                     os.write(QUITBytes);
                     break;
                 }
